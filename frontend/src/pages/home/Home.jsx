@@ -6,11 +6,14 @@ import NoteCreateModal from './components/NoteCreateModal';
 import Axios from '../../share/AxiosInstance';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import GlobalContext from '../../share/context/GlobalContext';
 
-const Home = ({ user = {}, setStatus = () => {} }) => {
+const Home = ({ setStatus = () => {} }) => {
   const [openCreate, setOpenCreate] = useState(false);
   const [notes, setNotes] = useState([]);
   const navigate = useNavigate();
+  const { user, setUser } = useContext(GlobalContext);
 
   useEffect(() => {
     const userToken = Cookies.get('UserToken');
@@ -19,10 +22,19 @@ const Home = ({ user = {}, setStatus = () => {} }) => {
         setNotes(res.data.data);
       });
     }
-  }, []);
+  }, [user]);
 
   const handleNoteCreateOpen = () => {
     // TODO: check if user is logged in before open modal
+    if(!user) {
+      setStatus({
+        msg: 'You must login to create note',
+        severity: 'error',
+      });
+    }else {
+      setOpenCreate(true);
+    }
+    setTimeout(()=> setStatus(), 1000);
   };
 
   const handleNoteCreateClose = () => {

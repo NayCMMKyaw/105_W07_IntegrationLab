@@ -2,6 +2,7 @@ import { Box, Link, TextField, Typography } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import GlobalContext from '../../../context/GlobalContext';
 import Axios from '../../../AxiosInstance';
+import { useMutation } from 'react-query';
 
 const LoginForm = ({ handleClose = () => {}, setIsLogin = () => {} }) => {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
@@ -18,8 +19,8 @@ const LoginForm = ({ handleClose = () => {}, setIsLogin = () => {} }) => {
     onSuccess: (data) => {
       if (data.data.success) {
         setUser({
-          username: data.data.username,
-          email: data.data.email,
+          username: data.data.data.username,
+          email: data.data.data.email,
         });
         handleClose();
         setStatus({

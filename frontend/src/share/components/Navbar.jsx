@@ -4,9 +4,10 @@ import CustomButton from './CustomButton';
 import Axios from '../AxiosInstance';
 import Cookies from 'js-cookie';
 import GlobalContext from '../context/GlobalContext';
+import { useQuery} from 'react-query';
 
 
-const Navbar = ({ handleOpen = () => {}, user, setUser = () => {} }) => {
+const Navbar = ({ handleOpen = () => {}, }) => {
 
   const { user, setUser } = useContext(GlobalContext);
   const [startFetch, setstartFetch ] = useState(false);

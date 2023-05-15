@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Box, Container, Fab } from '@mui/material';
 import Narbar from './Navbar';
@@ -6,6 +6,7 @@ import AuthModal from '../modal/auth/AuthModal';
 import CommentModal from '../modal/comment/CommentModal';
 import SnackBarMessage from '../SnackBarMessage';
 import GlobalContext from '../context/GlobalContext';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const Layout = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
@@ -28,6 +29,8 @@ const Layout = () => {
       setStatus,
     };
   }, [user]);
+
+  const queryClient = new QueryClient();
   return (
     <GlobalContext.Provider value={globalContextValue}>
       <QueryClientProvider client={queryClient}>
