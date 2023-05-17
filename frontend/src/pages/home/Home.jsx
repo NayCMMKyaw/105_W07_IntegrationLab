@@ -34,7 +34,7 @@ const Home = ({ setStatus = () => {} }) => {
     }else {
       setOpenCreate(true);
     }
-    setTimeout(()=> setStatus(), 1000);
+    setTimeout(()=> setStatus(), 1000)
   };
 
   const handleNoteCreateClose = () => {

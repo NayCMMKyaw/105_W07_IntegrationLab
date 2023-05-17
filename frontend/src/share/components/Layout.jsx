@@ -12,25 +12,31 @@ const Layout = () => {
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [openCommentModal, setOpenCommentModal] = useState(false);
   const [status, setStatus] = useState();
+
   const handleOpen = () => setOpenLoginModal(true);
   const handleClose = () => setOpenLoginModal(false);
 
   const handleCommentOpen = () => setOpenCommentModal(true);
   const handleCommentClose = () => setOpenCommentModal(false);
+
   const [user, setUser] = useState();
+  const [comments, setComments] = useState([]);
   const generatekey = () => {
     return Math.random();
   };
-
+  const queryClient = new QueryClient();
+  
   const globalContextValue = useMemo(()=> {
     return {
       user,
+      comments,
       setUser,
       setStatus,
+      setComments,
     };
-  }, [user]);
+  }, [user, comments, setComments]);
 
-  const queryClient = new QueryClient();
+  
   return (
     <GlobalContext.Provider value={globalContextValue}>
       <QueryClientProvider client={queryClient}>
